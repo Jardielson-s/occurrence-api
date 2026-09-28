@@ -7,6 +7,13 @@ export const badRequest = (body: any): IHttpResponse => {
   };
 };
 
+export const invalidRequest = (body: any): IHttpResponse => {
+  return {
+    body: body,
+    status: 409,
+  };
+};
+
 export const ok = (body: any): IHttpResponse => {
   return {
     body: body,
