@@ -12,14 +12,17 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # 👈 Baixa todo o histórico para o git diff funcionar
 
       - name: Gemini Code review Github Action
         uses: sshnaidm/gemini-code-review-action@v2
         with:
           gemini-key: ${{ secrets.GEMINI_API_KEY }}
-          model: gemini-2.5-pro
-          context-lines: 15
+          model: gemini-3.8-flash
+          context-lines: 10
           review-title: "🤖 Gemini AI - Revisão de Código"
           prompt: |
             Você é um engenheiro de software sênior e especialista em segurança.
