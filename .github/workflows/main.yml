@@ -21,7 +21,7 @@ jobs:
         uses: sshnaidm/gemini-code-review-action@v2
         with:
           gemini-key: ${{ secrets.GEMINI_API_KEY }}
-          model: gemini-2.5-pro
+          model: gemini-3.1-pro-preview
           context-lines: 15
           review-title: "🤖 Gemini AI - Revisão de Código"
           prompt: |
