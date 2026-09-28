@@ -12,7 +12,10 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # 👈 Baixa todo o histórico para o git diff funcionar
 
       - name: Gemini Code review Github Action
         uses: sshnaidm/gemini-code-review-action@v2
