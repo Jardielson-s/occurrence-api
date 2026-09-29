@@ -44,6 +44,7 @@ export class OcurrenceService {
   async updateStatus(
     id: string,
     status: Status,
+    note: string,
   ): Promise<OccurrenceEntity | null> {
     try {
       const occurrance = await this.occurrenceRepository.findOne({ _id: id });
@@ -66,6 +67,7 @@ export class OcurrenceService {
       }
       return this.occurrenceRepository.update(occurrance._id.toString(), {
         status: status,
+        note,
       });
     } catch (error) {
       throw error;

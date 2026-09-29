@@ -10,13 +10,13 @@ export const occurrenceRoutes = async (app: Express) => {
   const occurranceMount = new OcurrenceService(await occurrenceRepository());
   const router = Router();
   router.post(
-    "",
+    "/",
     adapterRoutes(new CreateOccurranceController(occurranceMount)),
   );
-  router.get("", adapterRoutes(new ListOccurranceController(occurranceMount)));
+  router.get("/", adapterRoutes(new ListOccurranceController(occurranceMount)));
   router.patch(
     "/:id/status",
     adapterRoutes(new UpdateOccurranceStatusController(occurranceMount)),
   );
-  app.use("/occurrances", router);
+  app.use("/occurrences", router);
 };
