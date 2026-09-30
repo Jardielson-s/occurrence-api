@@ -4,7 +4,7 @@ export enum OccurrenceType {
   intrusion = "intrusion",
   perimeter_breach = "perimeter_breach",
   low_battery = "low_battery",
-  signal_loss = "signal_loss", // Corrigido de "low_battery" para evitar duplicidade lógica
+  signal_loss = "signal_loss",
 }
 
 export enum Status {
@@ -22,7 +22,7 @@ export interface IOccurrenceSchema {
   detectedAt: Date | null;
   status: Status;
   count: number;
-  note: string;
+  note?: string;
 }
 
 export interface IOccurrenceDocument extends IOccurrenceSchema, Document {}
