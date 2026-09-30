@@ -7,7 +7,7 @@
     "build": "esbuild src/server.ts --bundle --platform=node --target=node24 --format=cjs --outdir=dist --out-extension:.js=.cjs",
     "start:dev": "npx tsx src/server.ts",
     "start:prod": "node dist/server.cjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "@types/express": "^5.0.6",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
+    "cors": "^2.8.6",
     "dotenv": "^18.0.4",
     "express": "^5.2.1",
     "mongodb": "^7.6.0",
@@ -24,7 +25,9 @@
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "esbuild": "^0.28.2",
-    "tsx": "^4.23.15"
+    "tsx": "^4.23.15",
+    "vitest": "^5.0.3"
   }
 }

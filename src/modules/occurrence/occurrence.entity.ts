@@ -23,7 +23,7 @@ export class OccurrenceEntity {
   public detectedAt: Date | null;
   public status: Status;
   public count: number;
-  public note: string;
+  public note?: string;
 
   constructor(input: Omit<OccurrenceEntity, "_id">) {
     this._id = new ObjectId();

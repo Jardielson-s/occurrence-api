@@ -24,6 +24,7 @@ export class UpdateOccurranceStatusController implements IController {
       const data = await this.service.updateStatus(
         input.requestParams.id,
         input.requestBody.status,
+        input.requestBody.note,
       );
       return ok({ message: `Occurrance Updated!`, _id: data?._id });
     } catch (error: any) {
