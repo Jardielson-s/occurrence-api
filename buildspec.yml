@@ -17,7 +17,7 @@ phases:
     commands:
       - echo "Realizando o build com esbuild..."
       - npm run build
-      - docker build -t occurrence-api .
+      # - docker build -t occurrence-api .
 
 artifacts:
   files:
