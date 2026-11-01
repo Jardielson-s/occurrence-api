@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Instalando dependências..."
+      - . $NVM_DIR/nvm.sh
+      - nvm install 24
+      - nvm use 24
+      - node -v 
+      - npm ci
+  
+  pre_build:
+    commands:
+      - echo "Executando testes..."
+      - npm test
+
+  build:
+    commands:
+      - echo "Realizando o build com esbuild..."
+      - npm run build
+      - docker build -t occurrence-api .
+
+artifacts:
+  files:
+    - package.json
+    - package-lock.json
+  discard-paths: no
+
+cache:
+  paths:
+    - 'node_modules/**/*'
