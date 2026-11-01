@@ -432,3 +432,33 @@ curl -X PATCH http://localhost:3000/occurrances/66fa1c2e9b1d4a0012ab34cd/status 
 5. Envie a branch: `git push origin feature/minha-feature`.
 6. Abra um Pull Request.
 
+
+## AWS CodeBuild & CI/CD
+
+Este repositório inclui configurações de integração contínua (CI) e build otimizadas para o AWS CodeBuild e implantação em containers.
+
+### Fluxo de Trabalho
+
+1. **Instalação de Dependências**: Instala os módulos do Node.js utilizando `npm ci`.
+2. **Testes**: Executa os testes unitários com o Vitest (`npm test`).
+3. **Build**: Compila o código TypeScript para o formato CJS do Node.js na pasta `/dist` usando `esbuild`.
+4. **Imagem Docker**: GERA uma imagem Docker leve de produção baseada em `node:24-alpine`.
+
+### Especificações do Build
+
+* **`buildspec.yml`**: Configura as fases do AWS CodeBuild (`install`, `pre_build` e `build`).
+* **`Dockerfile`**: Empacota a pasta `/dist` compilada e instala apenas dependências de produção (`npm ci --omit=dev`) em um container pronto para deploy (AWS ECS, EKS ou App Runner).
+
+### Build Local do Container
+
+Para testar a imagem Docker localmente após gerar o build do projeto:
+
+```bash
+# Gerar a compilação do TypeScript
+npm run build
+
+# Criar a imagem Docker
+docker build -t occurrence-api .
+
+# Executar o container
+docker run -p 3000:3000 occurrence-api
