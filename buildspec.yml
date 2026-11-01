@@ -23,10 +23,8 @@ phases:
 
 artifacts:
   files:
-    - dist/**/*
     - package.json
     - package-lock.json
-    - Dockerfile
   discard-paths: no
 
 cache:
