@@ -433,12 +433,32 @@ curl -X PATCH http://localhost:3000/occurrances/66fa1c2e9b1d4a0012ab34cd/status 
 6. Abra um Pull Request.
 
 
+## AWS CodeBuild & CI/CD
 
-## 🤖 Uso de Inteligência Artificial
- 
-Este README foi produzido com o apoio de IA generativa (**Claude**, da Anthropic), seguindo este processo:
- 
-1. **Rascunho inicial:** eu escrevi a primeira versão do documento, com as tecnologias, as regras de negócio, os passos para rodar o projeto e a lista de endpoints. Essa versão tinha problemas de formatação (blocos de código quebrados) e faltavam seções importantes.
-2. **Revisão e complemento com IA:** enviei o rascunho para o Claude com o pedido de ajustar o Markdown e deixá-lo completo. A IA corrigiu a formatação e acrescentou sumário, descrição da arquitetura em camadas, tabelas de variáveis de ambiente e scripts, exemplos de requisição e resposta por endpoint, seção de solução de problemas e orientações de contribuição.
-3. **Validação humana:** revisei o conteúdo gerado e ajustei o que dependia do código real do projeto, como nomes de campos, valores de status, estrutura de pastas e respostas de erro. A IA trabalhou apenas com as informações do rascunho e sinalizou as partes baseadas em suposição.
-A IA foi usada somente na **documentação**. A lógica da aplicação, as regras de negócio e os testes não foram gerados por essa conversa. Qualquer divergência entre este documento e o comportamento da API deve ser tratada como erro de documentação e corrigida.
+Este repositório inclui configurações de integração contínua (CI) e build otimizadas para o AWS CodeBuild e implantação em containers.
+
+### Fluxo de Trabalho
+
+1. **Instalação de Dependências**: Instala os módulos do Node.js utilizando `npm ci`.
+2. **Testes**: Executa os testes unitários com o Vitest (`npm test`).
+3. **Build**: Compila o código TypeScript para o formato CJS do Node.js na pasta `/dist` usando `esbuild`.
+4. **Imagem Docker**: GERA uma imagem Docker leve de produção baseada em `node:24-alpine`.
+
+### Especificações do Build
+
+* **`buildspec.yml`**: Configura as fases do AWS CodeBuild (`install`, `pre_build` e `build`).
+* **`Dockerfile`**: Empacota a pasta `/dist` compilada e instala apenas dependências de produção (`npm ci --omit=dev`) em um container pronto para deploy (AWS ECS, EKS ou App Runner).
+
+### Build Local do Container
+
+Para testar a imagem Docker localmente após gerar o build do projeto:
+
+```bash
+# Gerar a compilação do TypeScript
+npm run build
+
+# Criar a imagem Docker
+docker build -t occurrence-api .
+
+# Executar o container
+docker run -p 3000:3000 occurrence-api
