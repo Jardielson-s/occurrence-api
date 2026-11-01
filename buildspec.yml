@@ -1,0 +1,32 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 24
+    commands:
+      - echo "Instalando dependências..."
+      - npm ci
+  
+  pre_build:
+    commands:
+      - echo "Executando testes..."
+      - npm test
+
+  build:
+    commands:
+      - echo "Realizando o build com esbuild..."
+      - npm run build
+      - docker build -t occurrence-api .
+
+artifacts:
+  files:
+    - dist/**/*
+    - package.json
+    - package-lock.json
+    - Dockerfile
+  discard-paths: no
+
+cache:
+  paths:
+    - 'node_modules/**/*'
