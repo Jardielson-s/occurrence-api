@@ -4,9 +4,7 @@ phases:
   install:
     commands:
       - echo "Instalando dependências..."
-      - . $NVM_DIR/nvm.sh
-      - nvm install 24
-      - nvm use 24
+      - n 24.18.0
       - node -v 
       - npm ci
   
